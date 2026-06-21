@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>AI Study Chatbot</title>
+
+<style>
+
+body{
+
+background:#0f172a;
+
+color:white;
+
+font-family:Segoe UI;
+
+display:flex;
+
+justify-content:center;
+
+padding:60px;
+
+}
+
+.box{
+
+width:700px;
+
+background:#1e293b;
+
+padding:40px;
+
+border-radius:25px;
+
+}
+
+input{
+
+width:100%;
+
+padding:16px;
+
+border:none;
+
+border-radius:12px;
+
+}
+
+button{
+
+margin-top:20px;
+
+padding:15px;
+
+width:100%;
+
+background:#2563eb;
+
+color:white;
+
+border:none;
+
+border-radius:12px;
+
+}
+
+.result{
+
+margin-top:30px;
+
+background:#334155;
+
+padding:20px;
+
+border-radius:12px;
+
+white-space:pre-wrap;
+
+}
+
+a{
+
+color:#93c5fd;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>
+
+🤖 AI Study Chatbot
+
+</h1>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<input
+
+
+type="text"
+
+name="question"
+
+placeholder=
+"Ask AI..."
+
+required
+
+>
+
+
+<button>
+
+Ask AI
+
+</button>
+
+</form>
+
+{% if answer %}
+
+<div class="result">
+
+{{ answer }}
+
+</div>
+
+{% endif %}
+
+<br>
+
+<a href="/home/">
+
+🏠 Home
+
+</a>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>
+Add Subject | AI Study Planner
+</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI;
+}
+
+body{
+
+background:
+linear-gradient(
+135deg,
+#0f172a,
+#1e293b,
+#2563eb
+);
+
+min-height:100vh;
+
+padding:50px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+}
+
+.container{
+
+width:900px;
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:30px;
+
+}
+
+.card{
+
+background:
+rgba(
+255,
+255,
+255,
+0.12
+);
+
+backdrop-filter:
+blur(20px);
+
+padding:40px;
+
+border-radius:28px;
+
+box-shadow:
+0 20px 50px
+rgba(
+0,
+0,
+0,
+0.3
+);
+
+}
+
+.title{
+
+color:white;
+
+font-size:34px;
+
+margin-bottom:15px;
+
+}
+
+.user{
+
+color:#cbd5e1;
+
+margin-bottom:25px;
+
+}
+
+form p{
+
+color:white;
+
+margin-bottom:18px;
+
+}
+
+input{
+
+width:100%;
+
+padding:14px;
+
+border:none;
+
+border-radius:12px;
+
+margin-top:8px;
+
+font-size:16px;
+
+}
+
+button{
+
+width:100%;
+
+padding:16px;
+
+border:none;
+
+border-radius:14px;
+
+background:#2563eb;
+
+color:white;
+
+font-size:18px;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+button:hover{
+
+background:#1d4ed8;
+
+transform:
+translateY(-3px);
+
+}
+
+.subject-card{
+
+background:
+rgba(
+255,
+255,
+255,
+0.15
+);
+
+padding:18px;
+
+border-radius:16px;
+
+margin-bottom:16px;
+
+color:white;
+
+}
+
+.subject-name{
+
+font-size:22px;
+
+font-weight:bold;
+
+}
+
+.progress{
+
+height:10px;
+
+background:#334155;
+
+border-radius:20px;
+
+overflow:hidden;
+
+margin-top:10px;
+
+}
+
+.fill{
+
+height:100%;
+
+background:#22c55e;
+
+}
+
+.home{
+
+display:inline-block;
+
+margin-top:25px;
+
+color:#93c5fd;
+
+text-decoration:none;
+
+}
+
+.empty{
+
+color:#cbd5e1;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<h1 class="title">
+
+📘 Add Subject
+
+</h1>
+
+<p class="user">
+
+Logged in as:
+<b>
+
+{{ request.user.username }}
+
+</b>
+
+</p>
+
+<form method="POST">
+
+{% csrf_token %}
+
+{{ form.as_p }}
+
+<button type="submit">
+
+Save Subject
+
+</button>
+
+</form>
+
+<a
+class="home"
+href="/home/"
+>
+
+← Go Home
+
+</a>
+
+</div>
+
+
+<div class="card">
+
+<h1 class="title">
+
+📚 Your Subjects
+
+</h1>
+
+{% for i in subjects %}
+
+<div class="subject-card">
+
+<div class="subject-name">
+
+{{ i.name }}
+
+</div>
+
+<br>
+
+⏱ Hours:
+{{ i.hours }}
+
+<br><br>
+
+🔥 Streak:
+{{ i.streak }}
+
+<br><br>
+
+✅ Completion:
+{{ i.completed }}%
+
+<div class="progress">
+
+<div
+class="fill"
+
+style="
+width:
+{{ i.completed }}%;
+"
+>
+
+</div>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<p class="empty">
+
+No subjects added yet.
+
+</p>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+</body>
+
+</html>

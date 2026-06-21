@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>AI Study Planner Dashboard</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI;
+}
+
+body{
+
+background:
+linear-gradient(
+135deg,
+#0f172a,
+#1e293b
+);
+
+padding:40px;
+
+}
+
+.container{
+
+max-width:1000px;
+
+margin:auto;
+
+}
+
+.title{
+
+text-align:center;
+
+color:white;
+
+font-size:42px;
+
+margin-bottom:35px;
+
+}
+
+.card{
+
+background:white;
+
+padding:25px;
+
+border-radius:20px;
+
+margin-bottom:20px;
+
+box-shadow:
+0 12px 30px rgba(
+0,
+0,
+0,
+0.25
+);
+
+transition:.3s;
+
+}
+
+.card:hover{
+
+transform:
+translateY(-5px);
+
+}
+
+.subject{
+
+font-size:28px;
+
+font-weight:bold;
+
+color:#0f172a;
+
+}
+
+.info{
+
+margin-top:15px;
+
+font-size:18px;
+
+color:#555;
+
+}
+
+.progress-title{
+
+margin-top:20px;
+
+font-weight:bold;
+
+}
+
+.bar{
+
+width:100%;
+
+height:18px;
+
+background:#ddd;
+
+border-radius:30px;
+
+overflow:hidden;
+
+margin-top:10px;
+
+}
+
+.fill{
+
+height:100%;
+
+background:
+linear-gradient(
+90deg,
+#22c55e,
+#3b82f6
+);
+
+}
+
+.buttons{
+
+text-align:center;
+
+margin-top:40px;
+
+}
+
+.btn{
+
+display:inline-block;
+
+padding:14px 28px;
+
+background:#2563eb;
+
+color:white;
+
+text-decoration:none;
+
+border-radius:12px;
+
+margin:10px;
+
+font-size:18px;
+
+}
+
+.btn:hover{
+
+background:#1d4ed8;
+
+}
+
+.empty{
+
+text-align:center;
+
+color:white;
+
+font-size:22px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1 class="title">
+
+📚 AI Study Dashboard
+
+</h1>
+
+{% if data %}
+
+{% for i in data %}
+
+<div class="card">
+
+<div class="subject">
+
+{{ i.name }}
+
+</div>
+
+<div class="info">
+
+⏰ Hours :
+{{ i.hours }}
+
+🔥 Study Streak:
+{{ i.streak }}
+days
+
+</div>
+
+<div class="progress-title">
+
+Progress :
+{{ i.completed }} %
+
+</div>
+
+<div class="bar">
+
+<div
+class="fill"
+style="width:{{ i.completed }}%"
+>
+
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+{% else %}
+
+<div class="empty">
+
+No subjects added yet
+
+</div>
+
+{% endif %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<canvas id="chart"></canvas>
+
+<script>
+
+new Chart(
+document.getElementById("chart"),
+
+{
+type:"bar",
+
+data:{
+labels:[
+{% for i in data %}
+"{{ i.name }}",
+{% endfor %}
+],
+
+datasets:[{
+
+label:"Completion %",
+
+data:[
+{% for i in data %}
+{{ i.completed }},
+{% endfor %}
+]
+
+}]
+
+}
+
+}
+
+)
+
+</script>
+
+<div class="buttons">
+
+<a
+href="/home/"
+class="btn"
+
+>
+
+🏠 Home
+
+</a>
+
+<a
+href="/timetable/"
+class="btn"
+
+>
+
+⚡ Generate Timetable
+
+</a>
+
+<a
+href="/add/"
+class="btn"
+
+>
+
+➕ Add Subject
+
+</a>
+
+</div>
+
+</div>
+
+</body>
+
+</html>
